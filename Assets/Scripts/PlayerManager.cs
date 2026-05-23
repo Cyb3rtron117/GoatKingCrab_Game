@@ -26,6 +26,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float CurrentBoostTime = 1f;
     public float boostSpeed = 1.5f;
 
+    [Header("enemy trigger collider")]
+    [SerializeField] private PolygonCollider2D enemTrigger;
     void Awake()
     {
         playerInputSys = new PlayerInputSystem(); //initialising the input system
@@ -92,6 +94,7 @@ public class PlayerManager : MonoBehaviour
         {
             verticalVelocity = jumpForce;
             isGrounded = false;
+            enemTrigger.enabled = false;
         }
 
         if (!isGrounded || verticalVelocity > 0)
@@ -105,6 +108,7 @@ public class PlayerManager : MonoBehaviour
                 verticalPosition = 0;
                 verticalVelocity = 0;
                 isGrounded = true;
+                enemTrigger.enabled = true;
             }
         }
 
