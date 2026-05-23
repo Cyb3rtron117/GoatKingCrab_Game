@@ -171,6 +171,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9061600038503753298, guid: f05130b553269d346b6229e7845a75b3, type: 3}
+      propertyPath: sfxVolume
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9061600038503753298, guid: f05130b553269d346b6229e7845a75b3, type: 3}
+      propertyPath: musicVolume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9061600038503753298, guid: f05130b553269d346b6229e7845a75b3, type: 3}
+      propertyPath: ambienceVolume
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8828,14 +8840,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FootstepManager
   footstepClips:
-  - {fileID: 8300000, guid: ba651f7895aca43419a6fb0c21d1eb96, type: 3}
-  - {fileID: 8300000, guid: 87af42e16be6fc243a2853609008c2ac, type: 3}
-  - {fileID: 8300000, guid: de6687bd9039c074a8c2a5df80b90b1f, type: 3}
-  - {fileID: 8300000, guid: e3bb51bf84c2e9e4599f10f712b7efbe, type: 3}
-  - {fileID: 8300000, guid: 88d99f2324e83704e98d26e2e779c3a5, type: 3}
+  - {fileID: 8300000, guid: 8dfe20c6f0fd0c649bdbc02d607ff559, type: 3}
+  - {fileID: 8300000, guid: 96f5d3a88a196e340959c9d193d1784a, type: 3}
+  - {fileID: 8300000, guid: dd393a7bace0c6549bb2c5cca078d172, type: 3}
+  - {fileID: 8300000, guid: a53b29609a7a63d4cb23407fe0bacf9c, type: 3}
+  - {fileID: 8300000, guid: da98005395de1b44e80d4b5a114cc297, type: 3}
   volume: 0.7
   pitchVariation: 0.1
-  stepInterval: 0.2
+  stepInterval: 0.3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
     private AudioSource sfxSource;
     private AudioSource ambienceSource;
 
-    void awake()
+    void Awake()
     {
         if (instance != null && instance != this)
         {
