@@ -9,18 +9,16 @@ public class PlayerManager : MonoBehaviour
     public Animator anim;
     public float normalSpeed = 1f;
     public float moveSpeed = 1f;
-    
-    [Header("Jumping")]
-    public float jumpforce = 1f;
-    public float lowjumpMultiplier = 2f;
-    public float fallMultiplier = 3f;
-    public bool isGrounded = true;
-    public bool isFalling = false;
+    public Transform playerVisuals;
 
-    private float coyoteTime = 0.1f;
-    [SerializeField] private float coyoteTimeCounter = 0.1f;
-    public float rayDist = 1f;
-    public float rayOffset = 0.1f;
+    [Header("Jump Settings")]
+    public float jumpForce = 8f;
+    public float gravity = 25f;
+
+    // Internal Fake 3D Z-Axis Variables
+    private float verticalPosition = 0f; // Fake Z height
+    private float verticalVelocity = 0f; // Fake Z velocity
+    private bool isGrounded;
 
     [Header("Boosting")]
     private bool boosting = false;
@@ -31,6 +29,8 @@ public class PlayerManager : MonoBehaviour
     [Header("Audio")]
     FootstepManager footsteps;
 
+    [Header("enemy trigger collider")]
+    [SerializeField] private PolygonCollider2D enemTrigger;
     void Awake()
     {
         playerInputSys = new PlayerInputSystem(); //initialising the input system
@@ -50,6 +50,7 @@ public class PlayerManager : MonoBehaviour
     {
         footsteps = GetComponent<FootstepManager>();
 
+        isGrounded = true;
         moveSpeed = normalSpeed;
         if (rb == null)
         {
@@ -96,53 +97,40 @@ public class PlayerManager : MonoBehaviour
                 boostSpeed = 1f;
             }
         }
-        
 
-        //Jumping with coyote time
-        /*
-        Vector3 rayPos = new Vector3(transform.position.x, transform.position.y - rayOffset, transform.position.z);
-        isGrounded = Physics2D.Raycast(rayPos, Vector2.down, rayDist, LayerMask.GetMask("Ground"));
-        Debug.DrawRay(rayPos, Vector2.down * rayDist, Color.red);
-        
-
-        if (isGrounded)
+        if (playerInputSys.Player.Jump.WasPressedThisFrame() && isGrounded)
         {
-            coyoteTimeCounter = coyoteTime;
-        }
-        else
-        {
-            coyoteTimeCounter -= Time.fixedDeltaTime;
-
+            verticalVelocity = jumpForce;
+            isGrounded = false;
+            enemTrigger.enabled = false;
         }
 
-        if (playerInputSys.Player.Jump.WasPressedThisFrame() && coyoteTimeCounter > 0f)
+        if (!isGrounded || verticalVelocity > 0)
         {
-            rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
-            coyoteTimeCounter = 0;
+            verticalVelocity -= gravity * Time.fixedDeltaTime;
+            verticalPosition += verticalVelocity * Time.fixedDeltaTime;
+
+            // Land detection
+            if (verticalPosition <= 0)
+            {
+                verticalPosition = 0;
+                verticalVelocity = 0;
+                isGrounded = true;
+                enemTrigger.enabled = true;
+            }
         }
 
-        if (rb.linearVelocity.y < 0f) //falling
-        {
-            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
-            isFalling = true;
-        }
-        else if (rb.linearVelocity.y > 0f && !playerInputSys.Player.Jump.IsPressed()) //low jump
-        {
-            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowjumpMultiplier - 1) * Time.fixedDeltaTime;
-        }
-        if (rb.linearVelocity.y >= 0f)
-        {
-            isFalling = false;
-        }
-        */
-
+        // 5. Apply the visual height offset to the sprite child object
+        Vector3 localPos = playerVisuals.localPosition;
+        localPos.y = verticalPosition;
+        playerVisuals.localPosition = localPos;
         //UpdateAnims();
     }
 
     void UpdateAnims()
     {
         anim.SetBool("isGrounded", isGrounded);
-        anim.SetBool("isFalling", isFalling);
+        //anim.SetBool("isFalling", isFalling);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
