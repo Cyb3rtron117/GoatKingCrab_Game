@@ -44,9 +44,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5654ec21df591e74c9b3acd4c221b40f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  musicTracks: []
-  sfxClips: []
-  ambienceClips: []
-  musicVolume: 0
-  sfxVolume: 0
-  ambienceVolume: 0
+  musicTracks:
+  - {fileID: 8300000, guid: c524c3efd517a4f48a70a689ae219e83, type: 3}
+  - {fileID: 8300000, guid: fe88be04af80d6d42bf7f72eb13dc3b9, type: 3}
+  sfxClips:
+  - {fileID: 8300000, guid: 2f998af2a1f960c479d7166d41f2662a, type: 3}
+  - {fileID: 8300000, guid: e8350265f9ca33d4bbda3e943f8c8a55, type: 3}
+  - {fileID: 8300000, guid: 9374597b3cda7b547a0f2be720a73cd6, type: 3}
+  - {fileID: 8300000, guid: 576cfb9adc58cc945a0e5abf511d1216, type: 3}
+  - {fileID: 8300000, guid: 374ce25dded945742890401320460520, type: 3}
+  - {fileID: 8300000, guid: d785c5f419f970846a7d6f0009e218ae, type: 3}
+  - {fileID: 8300000, guid: 0b6d0bcb4407c034e9ae3bc4b608cea5, type: 3}
+  - {fileID: 8300000, guid: ba651f7895aca43419a6fb0c21d1eb96, type: 3}
+  - {fileID: 8300000, guid: 87af42e16be6fc243a2853609008c2ac, type: 3}
+  - {fileID: 8300000, guid: de6687bd9039c074a8c2a5df80b90b1f, type: 3}
+  - {fileID: 8300000, guid: e3bb51bf84c2e9e4599f10f712b7efbe, type: 3}
+  - {fileID: 8300000, guid: 88d99f2324e83704e98d26e2e779c3a5, type: 3}
+  ambienceClips:
+  - {fileID: 8300000, guid: 357b6bbcbcde4c245b727ec8e6f06294, type: 3}
+  musicVolume: 0.3
+  sfxVolume: 0.6
+  ambienceVolume: 0.4
