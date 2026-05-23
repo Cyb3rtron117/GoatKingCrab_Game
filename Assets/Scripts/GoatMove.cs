@@ -31,12 +31,6 @@ public class GoatMove : MonoBehaviour
         }
         else
         {
-            if (rb.bodyType == RigidbodyType2D.Dynamic)
-            {
-                rb.bodyType = RigidbodyType2D.Kinematic;
-            }
-            rb.linearVelocity = Vector2.zero;
-            
             if(currentRidetime > 0f)
             {
                 currentRidetime -= Time.fixedDeltaTime;
@@ -51,9 +45,21 @@ public class GoatMove : MonoBehaviour
     public void Ride( GameObject playerObj)
     {
         isRidden = true;
-        currentRidetime = maxRidetime;
         player = playerObj;
+        
+        if (rb.bodyType == RigidbodyType2D.Dynamic)
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;
+        }
+        transform.SetParent(player.transform, true);
+        transform.position = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
+
+        currentRidetime = maxRidetime;
+        
         player.GetComponent<PlayerManager>().Boost();
+        
+
     }
     public void Die()
     {
@@ -63,13 +69,18 @@ public class GoatMove : MonoBehaviour
 
     public void Kick()
     {
+        
         transform.SetParent(null, true);
-        isRidden = false;
-        player = null;
+        
+        
         if (rb.bodyType == RigidbodyType2D.Kinematic)
         {
             rb.bodyType = RigidbodyType2D.Dynamic;
         }
+        isRidden = false;
+
+        player.GetComponent<PlayerManager>().Jump();
+        player = null;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
