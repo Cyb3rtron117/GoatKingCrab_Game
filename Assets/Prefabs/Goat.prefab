@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 6573222586008667373}
   - component: {fileID: 7476133304038373781}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: GOat_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,8 +141,8 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.9169811, g: 0.43426833, b: 0.43426833, a: 1}
+  m_Sprite: {fileID: -3391729537726007805, guid: 19528c75822058f4b90c46943f791c7c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

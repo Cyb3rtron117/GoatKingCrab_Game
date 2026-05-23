@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 58c9c05c9c80eb242852ec6e094908a4
+guid: 19528c75822058f4b90c46943f791c7c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5786828213590303716
-    second: King design Copy_0
+      213: -7244613301631457590
+    second: game_jam_stuff2_0
+  - first:
+      213: -3391729537726007805
+    second: game_jam_stuff2_1
+  - first:
+      213: -3022780145689752315
+    second: game_jam_stuff2_2
+  - first:
+      213: -3756358170521889587
+    second: game_jam_stuff2_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 48
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: King design Copy_0
+      name: game_jam_stuff2_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 2
-        width: 26
-        height: 61
+        x: 0
+        y: 35
+        width: 95
+        height: 89
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +137,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c1cddb0566e01bfa0800000000000000
-      internalID: -5786828213590303716
+      spriteID: ac6ef25f596f57b90800000000000000
+      internalID: -7244613301631457590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_jam_stuff2_1
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 36
+        width: 27
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30634a1a4f72ee0d0800000000000000
+      internalID: -3391729537726007805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_jam_stuff2_2
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 11
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50d0f0e097dec06d0800000000000000
+      internalID: -3022780145689752315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_jam_stuff2_3
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 3
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc418ec552cbedbc0800000000000000
+      internalID: -3756358170521889587
       vertices: []
       indices: 
       edges: []
@@ -148,7 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      King design Copy_0: -5786828213590303716
+      game_jam_stuff2_0: -7244613301631457590
+      game_jam_stuff2_1: -3391729537726007805
+      game_jam_stuff2_2: -3022780145689752315
+      game_jam_stuff2_3: -3756358170521889587
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
