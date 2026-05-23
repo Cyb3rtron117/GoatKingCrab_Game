@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AdaptivePerformance;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -6,7 +7,9 @@ public class PlayerManager : MonoBehaviour
 
     public Rigidbody2D rb;
     public Animator anim;
+    public float normalSpeed = 1f;
     public float moveSpeed = 1f;
+    
     [Header("Jumping")]
     public float jumpforce = 1f;
     public float lowjumpMultiplier = 2f;
@@ -19,6 +22,11 @@ public class PlayerManager : MonoBehaviour
     public float rayDist = 1f;
     public float rayOffset = 0.1f;
 
+    [Header("Boosting")]
+    private bool boosting = false;
+    [SerializeField] private float BoostTime = 1f;
+    [SerializeField] private float CurrentBoostTime = 1f;
+    public float boostSpeed = 1.5f;
 
     void Awake()
     {
@@ -37,6 +45,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        moveSpeed = normalSpeed;
         if (rb == null)
         {
             rb = GetComponent<Rigidbody2D>();
@@ -45,7 +54,7 @@ public class PlayerManager : MonoBehaviour
         {
             anim = GetComponent<Animator>();
         }
-
+        boostSpeed = 1f;
     }
 
     // Update is called once per frame
@@ -56,11 +65,30 @@ public class PlayerManager : MonoBehaviour
         //rb.linearVelocity = new Vector2(playerInput.x * moveSpeed, rb.linearVelocity.y);
         
         Vector2 isoOffset = new Vector2(-1f, 0.5f);
-        if(playerInput != Vector2.zero)
-        {
-            rb.linearVelocity = new Vector2(playerInput.x - playerInput.y, playerInput.x + playerInput.y) * isoOffset * moveSpeed;
-        }
 
+        Vector2 moveDir = new Vector2(playerInput.x, boostSpeed);
+        rb.linearVelocity = new Vector2(moveDir.x - moveDir.y, moveDir.x + moveDir.y) * isoOffset * moveSpeed;
+
+        if (playerInputSys.Player.Sprint.WasPressedThisFrame())
+        {
+            Boost();
+        }
+        if(boosting)
+        {
+            if(CurrentBoostTime > 0f)
+            {
+                CurrentBoostTime -= Time.fixedDeltaTime;
+                //moveSpeed = boostSpeed;
+                boostSpeed = 2f;
+            }
+            else
+            {
+                boosting = false;
+                //moveSpeed = normalSpeed;
+                boostSpeed = 1f;
+            }
+        }
+        
 
         //Jumping with coyote time
         /*
@@ -121,6 +149,14 @@ public class PlayerManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") && isGrounded)
         {
             isGrounded = false;
+        }
+    }
+    void Boost()
+    {
+        if (!boosting)
+        {
+            boosting = true;
+            CurrentBoostTime = BoostTime;
         }
     }
 }
