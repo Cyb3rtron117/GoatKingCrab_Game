@@ -14,11 +14,10 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !gameStarted)
-        {
-            onGameStart?.Invoke();
-            gameStarted = true;
-        }
+
+        onGameStart?.Invoke();
+        gameStarted = true;
+        
 
     }
 
@@ -26,4 +25,5 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.instance.PlayMusic(0);
     }
+
 }
