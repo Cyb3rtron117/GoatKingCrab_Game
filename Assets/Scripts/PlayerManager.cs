@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AdaptivePerformance;
 
@@ -30,7 +31,9 @@ public class PlayerManager : MonoBehaviour
     FootstepManager footsteps;
 
     [Header("enemy trigger collider")]
+    [Header("other colliders")]
     [SerializeField] private PolygonCollider2D enemTrigger;
+    public List <GameObject> possibleGoats = new List<GameObject>();
     void Awake()
     {
         playerInputSys = new PlayerInputSystem(); //initialising the input system
@@ -61,6 +64,8 @@ public class PlayerManager : MonoBehaviour
             anim = GetComponent<Animator>();
         }
         boostSpeed = 1f;
+        possibleGoats[0].transform.SetParent(transform, true);
+        possibleGoats[0].GetComponent<GoatMove>().Ride(gameObject);
     }
 
     // Update is called once per frame
@@ -80,7 +85,7 @@ public class PlayerManager : MonoBehaviour
 
         if (playerInputSys.Player.Sprint.WasPressedThisFrame())
         {
-            Boost();
+            //Boost();
         }
         if(boosting)
         {
@@ -100,9 +105,11 @@ public class PlayerManager : MonoBehaviour
 
         if (playerInputSys.Player.Jump.WasPressedThisFrame() && isGrounded)
         {
-            verticalVelocity = jumpForce;
-            isGrounded = false;
-            enemTrigger.enabled = false;
+            //Jump();
+            if (possibleGoats.Count > 1)
+            {
+                possibleGoats[0].GetComponent<GoatMove>().Ride(gameObject);
+            }
         }
 
         if (!isGrounded || verticalVelocity > 0)
@@ -111,12 +118,13 @@ public class PlayerManager : MonoBehaviour
             verticalPosition += verticalVelocity * Time.fixedDeltaTime;
 
             // Land detection
-            if (verticalPosition <= 0)
+            if (verticalPosition <= 0 && possibleGoats.Count > 1)
             {
                 verticalPosition = 0;
                 verticalVelocity = 0;
                 isGrounded = true;
                 enemTrigger.enabled = true;
+                possibleGoats[0].GetComponent<GoatMove>().Ride(gameObject);
             }
         }
 
@@ -125,6 +133,7 @@ public class PlayerManager : MonoBehaviour
         localPos.y = verticalPosition;
         playerVisuals.localPosition = localPos;
         //UpdateAnims();
+
     }
 
     void UpdateAnims()
@@ -132,27 +141,18 @@ public class PlayerManager : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         //anim.SetBool("isFalling", isFalling);
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground") && isGrounded)
-        {
-            isGrounded = false;
-        }
-    }
-    void Boost()
+    public void Boost()
     {
         if (!boosting)
         {
             boosting = true;
             CurrentBoostTime = BoostTime;
         }
+    }
+    public void Jump()
+    {
+        verticalVelocity = jumpForce;
+        isGrounded = false;
+        enemTrigger.enabled = false;
     }
 }
