@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class LevelGenerator : MonoBehaviour
     int gridCount = 4;
     private GameObject[] spawnedPrefabs;
     Vector2 nextSpawnPos = Vector2.zero;
+    int tileIndex = 0;
 
     [Header("Goat Prefab")]
     [SerializeField] private GameObject goatPrefab;
@@ -30,16 +32,22 @@ public class LevelGenerator : MonoBehaviour
             {
                 // Spawn a tile at the next spawn position
                 spawnedPrefabs[i] = Instantiate(tilePrefabs[0], nextSpawnPos, Quaternion.identity);
+                //Update layers
+                spawnedPrefabs[i].transform.GetChild(0).GetComponent<TilemapRenderer>().sortingOrder = tileIndex * -3;
+                spawnedPrefabs[i].transform.GetChild(1).GetComponent<TilemapRenderer>().sortingOrder = tileIndex * -2;
+                spawnedPrefabs[i].transform.GetChild(2).GetComponent<TilemapRenderer>().sortingOrder = tileIndex * -1;
 
                 //Spawn a goat on the tile with a 50% chance
                 spawnedGoats[i] = Instantiate(goatPrefab, nextSpawnPos, Quaternion.identity);
-                spawnedGoats[i].GetComponent<IsometricRigidbody>().SetPosition();
+                Vector3 spawnPos = new Vector3(tileIndex * tileLength * 0.5f, 0, 0);
+                spawnedGoats[i].GetComponent<IsometricRigidbody>().SetPosition(spawnPos);
 
                 nextSpawnPos += ConvertToIsometric(new Vector3(tileLength * 0.5f, 0, 0));
+                tileIndex++;
 
             }
             else 
-            { 
+            {
                 float cameraY = Camera.main.transform.position.y;
                 if (spawnedPrefabs[i].transform.position.y < cameraY - 8)
                 {
@@ -64,16 +72,6 @@ public class LevelGenerator : MonoBehaviour
 
         return new Vector2(isoX, isoY);
 
-    }
-    Vector3 ConvertToCartesian(Vector2 isometricPos)
-    {
-        // The cartesian X is calculated from the isometric X and Y
-        float cartesianX = (isometricPos.x / Mathf.Cos(Mathf.Deg2Rad * 30) + isometricPos.y / Mathf.Sin(Mathf.Deg2Rad * 30)) / 2;
-        // The cartesian Z is calculated from the isometric X and Y
-        float cartesianZ = (isometricPos.y / Mathf.Sin(Mathf.Deg2Rad * 30) - isometricPos.x / Mathf.Cos(Mathf.Deg2Rad * 30)) / 2;
-        // The cartesian Y is the same as the isometric Y
-        float cartesianY = isometricPos.y;
-        return new Vector3(cartesianX, cartesianY, cartesianZ);
     }
 
 }
