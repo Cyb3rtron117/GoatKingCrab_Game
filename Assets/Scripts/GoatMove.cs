@@ -16,7 +16,7 @@ public class GoatMove : MonoBehaviour
     void Start()
     {
         currentRidetime = maxRidetime;
-        if(startRidden)
+        if(startRidden && player != null)
         {
             isRidden = true;
             Ride(player);

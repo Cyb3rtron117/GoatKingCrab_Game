@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class GoatDetect : MonoBehaviour
 {
-    private PlayerManager playerScript;
+    public  PlayerManager playerScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerScript = transform.GetComponentInParent<PlayerManager>();
+        
     }
 
     // Update is called once per frame

@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 232578491}
   - component: {fileID: 232578490}
   - component: {fileID: 232578489}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Goat (5)
   m_TagString: Goat
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -322,6 +322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 266414417}
   - component: {fileID: 266414416}
+  - component: {fileID: 266414418}
   m_Layer: 8
   m_Name: Crab (1)
   m_TagString: Crab
@@ -403,6 +404,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &266414418
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266414415}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 9bdf81e01e67ae14a873a4d0834955d2, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 759
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 759
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 759
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 759
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 759
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.25}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.5, y: 0}
+      - {x: 0.5, y: 0.5}
+      - {x: 0, y: 0.75}
+      - {x: -0.5, y: 0.5}
+      - {x: -0.5, y: 0}
+      - {x: 0, y: -0.25}
+  m_UseDelaunayMesh: 1
 --- !u!114 &391736897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2388,6 +2442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 842651256}
   - component: {fileID: 842651255}
+  - component: {fileID: 842651257}
   m_Layer: 8
   m_Name: Crab
   m_TagString: Crab
@@ -2469,6 +2524,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &842651257
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842651254}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 9bdf81e01e67ae14a873a4d0834955d2, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 759
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 759
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 759
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 759
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 759
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.25}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.5, y: 0}
+      - {x: 0.5, y: 0.5}
+      - {x: 0, y: 0.75}
+      - {x: -0.5, y: 0.5}
+      - {x: -0.5, y: 0}
+      - {x: 0, y: -0.25}
+  m_UseDelaunayMesh: 1
 --- !u!1 &859342754
 GameObject:
   m_ObjectHideFlags: 0
@@ -2482,7 +2590,7 @@ GameObject:
   - component: {fileID: 859342757}
   - component: {fileID: 859342756}
   - component: {fileID: 859342755}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Goat (2)
   m_TagString: Goat
   m_Icon: {fileID: 0}
@@ -2561,7 +2669,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4735,7 +4843,7 @@ GameObject:
   - component: {fileID: 979529912}
   - component: {fileID: 979529911}
   - component: {fileID: 979529910}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Goat (3)
   m_TagString: Goat
   m_Icon: {fileID: 0}
@@ -4814,7 +4922,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4928,7 +5036,7 @@ GameObject:
   - component: {fileID: 1022226385}
   - component: {fileID: 1022226384}
   - component: {fileID: 1022226383}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Goat (1)
   m_TagString: Goat
   m_Icon: {fileID: 0}
@@ -5007,7 +5115,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -5135,7 +5243,7 @@ GameObject:
   - component: {fileID: 1233471732}
   - component: {fileID: 1233471733}
   - component: {fileID: 1233471734}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Goat
   m_TagString: Goat
   m_Icon: {fileID: 0}
@@ -5254,7 +5362,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -9433,7 +9541,7 @@ GameObject:
   - component: {fileID: 1714765587}
   - component: {fileID: 1714765586}
   - component: {fileID: 1714765585}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Goat (4)
   m_TagString: Goat
   m_Icon: {fileID: 0}
@@ -9512,7 +9620,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -9799,6 +9907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c11326498fb93041aaa6aa21e42d7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoatDetect
+  playerScript: {fileID: 1950838746}
 --- !u!1 &1785889424
 GameObject:
   m_ObjectHideFlags: 0
