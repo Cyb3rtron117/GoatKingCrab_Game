@@ -16,6 +16,7 @@ public class PlayerManager : MonoBehaviour
     public float jumpForce = 8f;
     public float gravity = 25f;
     private bool Freeze = false;
+    private bool slam = false;
 
     // Internal Fake 3D Z-Axis Variables
     private float verticalPosition = 0f; // Fake Z height
@@ -103,14 +104,23 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        if (playerInputSys.Player.Jump.WasPressedThisFrame() && isGrounded)
+        if (playerInputSys.Player.Jump.WasPressedThisFrame())
         {
-            //Jump();
-            
-            if (possibleGoats.Count > 0)
+            if (isGrounded)
             {
-                print("jump");
-                possibleGoats[0].GetComponent<GoatMove>().Kick();
+                //Jump();
+                isGrounded = false;
+                if (possibleGoats.Count > 0)
+                {
+                    print("jump");
+                    possibleGoats[0].GetComponent<GoatMove>().Kick();
+                }
+            }
+            else
+            {
+                    print("slam");
+                    slam = true;
+                
             }
         }
 
@@ -118,8 +128,16 @@ public class PlayerManager : MonoBehaviour
         {
             if (!Freeze)
             {
-                verticalVelocity -= gravity * Time.fixedDeltaTime;
-                verticalPosition += verticalVelocity * Time.fixedDeltaTime;
+                if (!slam)
+                {
+                    verticalVelocity -= gravity * Time.fixedDeltaTime;
+                    verticalPosition += verticalVelocity * Time.fixedDeltaTime;
+                }
+                else
+                {
+                    verticalVelocity -= 2 * gravity * Time.fixedDeltaTime;
+                    verticalPosition += verticalVelocity * Time.fixedDeltaTime;
+                }
 
                 // Land detection
                 if (verticalPosition <= 0 && possibleGoats.Count > 0)
@@ -129,6 +147,7 @@ public class PlayerManager : MonoBehaviour
                     isGrounded = true;
                     enemTrigger.enabled = true;
                     possibleGoats[0].GetComponent<GoatMove>().Ride(gameObject);
+                    slam = false;
                 }
                 else if (verticalPosition <= -0.5f)
                 {
