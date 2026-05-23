@@ -11,11 +11,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !gameStarted)
-        {
-            onGameStart?.Invoke();
-            gameStarted = true;
-        }
+
+        onGameStart?.Invoke();
+        gameStarted = true;
+        
 
     }
+
+
 }

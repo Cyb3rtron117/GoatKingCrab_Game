@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class IsometricRigidbody : MonoBehaviour
 {
-    Vector3 velocity;
-    Vector3 isometricPosition;
+    [SerializeField] Vector3 velocity;
+    [SerializeField] Vector3 isometricPosition;
 
     void Start()
     {
@@ -27,6 +27,11 @@ public class IsometricRigidbody : MonoBehaviour
 
         // Add velccity to position
         isometricPosition += velocity * Time.deltaTime;
+        if (isometricPosition.y < 0)
+        {
+            isometricPosition.y = 0;
+            velocity.y = 0;
+        }
 
         transform.position = ConvertToIsometric(isometricPosition);
 
@@ -35,12 +40,13 @@ public class IsometricRigidbody : MonoBehaviour
     public Vector2 ConvertToIsometric(Vector3 cartesianPos)
     {
         // The isometric X is calculated from the horizontal (X) and depth/vertical (Z)
-        float isoX = (cartesianPos.x - cartesianPos.z) * 0.5f;
+        float isoX = (cartesianPos.x - cartesianPos.z) * Mathf.Cos(Mathf.Deg2Rad * 30);
 
         // The isometric Y is calculated from the horizontal (X), depth (Z), and height (Y)
-        float isoY = (cartesianPos.x + cartesianPos.z) * 0.25f - cartesianPos.y;
+        float isoY = (cartesianPos.x + cartesianPos.z) * Mathf.Sin(Mathf.Deg2Rad * 30) + cartesianPos.y;
 
         return new Vector2(isoX, isoY);
+
     }
 
     public void AddForce(Vector3 force, bool velocityChange = false)
@@ -49,6 +55,7 @@ public class IsometricRigidbody : MonoBehaviour
             velocity = force;
         else
             velocity += force;
+
     }
 
 
