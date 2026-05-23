@@ -55,11 +55,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 374ce25dded945742890401320460520, type: 3}
   - {fileID: 8300000, guid: d785c5f419f970846a7d6f0009e218ae, type: 3}
   - {fileID: 8300000, guid: 0b6d0bcb4407c034e9ae3bc4b608cea5, type: 3}
-  - {fileID: 8300000, guid: ba651f7895aca43419a6fb0c21d1eb96, type: 3}
-  - {fileID: 8300000, guid: 87af42e16be6fc243a2853609008c2ac, type: 3}
-  - {fileID: 8300000, guid: de6687bd9039c074a8c2a5df80b90b1f, type: 3}
-  - {fileID: 8300000, guid: e3bb51bf84c2e9e4599f10f712b7efbe, type: 3}
-  - {fileID: 8300000, guid: 88d99f2324e83704e98d26e2e779c3a5, type: 3}
   ambienceClips:
   - {fileID: 8300000, guid: 357b6bbcbcde4c245b727ec8e6f06294, type: 3}
   musicVolume: 0.3
