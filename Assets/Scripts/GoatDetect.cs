@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class GoatDetect : MonoBehaviour
 {
-    private PlayerManager playerScript;
+    public  PlayerManager playerScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerScript = transform.GetComponentInParent<PlayerManager>();
+        
     }
 
     // Update is called once per frame
@@ -19,6 +19,18 @@ public class GoatDetect : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Goat"))
         {
+            print("collide");
+            if (!playerScript.possibleGoats.Contains(collision.gameObject))
+            {
+                playerScript.possibleGoats.Add(collision.gameObject);
+            }
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Goat"))
+        {
+            print("collide");
             if (!playerScript.possibleGoats.Contains(collision.gameObject))
             {
                 playerScript.possibleGoats.Add(collision.gameObject);
