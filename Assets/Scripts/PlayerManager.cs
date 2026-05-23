@@ -26,8 +26,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float CurrentBoostTime = 1f;
     public float boostSpeed = 1.5f;
 
-    [Header("enemy trigger collider")]
+    [Header("other colliders")]
     [SerializeField] private PolygonCollider2D enemTrigger;
+    public GameObject[] possibleGoats;
     void Awake()
     {
         playerInputSys = new PlayerInputSystem(); //initialising the input system
@@ -117,6 +118,7 @@ public class PlayerManager : MonoBehaviour
         localPos.y = verticalPosition;
         playerVisuals.localPosition = localPos;
         //UpdateAnims();
+
     }
 
     void UpdateAnims()
@@ -124,22 +126,7 @@ public class PlayerManager : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         //anim.SetBool("isFalling", isFalling);
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground") && isGrounded)
-        {
-            isGrounded = false;
-        }
-    }
-    void Boost()
+    public void Boost()
     {
         if (!boosting)
         {
