@@ -6,7 +6,7 @@ public class LevelGenerator : MonoBehaviour
     [Header("Tile Prefabs")]
     [SerializeField] private GameObject[] tilePrefabs;
     int tileLength = 16;
-    int gridCount = 4;
+    int gridCount = 6;
     private GameObject[] spawnedPrefabs;
     Vector2 nextSpawnPos = Vector2.zero;
     int tileIndex = 0;
@@ -14,13 +14,15 @@ public class LevelGenerator : MonoBehaviour
     [Header("Goat Prefab")]
     [SerializeField] private GameObject goatPrefab;
     GameObject[] spawnedGoats;
-
+    public GameObject[] GetGameObjects() { return spawnedGoats; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         spawnedPrefabs = new GameObject[gridCount];
         spawnedGoats = new GameObject[gridCount];
+
+        nextSpawnPos = ConvertToIsometric(new Vector3(-tileLength, 0, 0));
     }
 
     // Update is called once per frame
@@ -38,8 +40,9 @@ public class LevelGenerator : MonoBehaviour
                 spawnedPrefabs[i].transform.GetChild(2).GetComponent<TilemapRenderer>().sortingOrder = tileIndex * -1;
 
                 //Spawn a goat on the tile with a 50% chance
+                int spawnChance = Random.Range(-3, 4);
                 spawnedGoats[i] = Instantiate(goatPrefab, nextSpawnPos, Quaternion.identity);
-                Vector3 spawnPos = new Vector3(tileIndex * tileLength * 0.5f, 0, 0);
+                Vector3 spawnPos = new Vector3((tileIndex - 2) * tileLength * 0.5f, spawnChance, 0);
                 spawnedGoats[i].GetComponent<IsometricRigidbody>().SetPosition(spawnPos);
 
                 nextSpawnPos += ConvertToIsometric(new Vector3(tileLength * 0.5f, 0, 0));
@@ -49,10 +52,11 @@ public class LevelGenerator : MonoBehaviour
             else 
             {
                 float cameraY = Camera.main.transform.position.y;
-                if (spawnedPrefabs[i].transform.position.y < cameraY - 8)
+                if (spawnedPrefabs[i].transform.position.y < cameraY - 14)
                 {
                     Destroy(spawnedPrefabs[i]);
                     Destroy(spawnedGoats[i]);
+                    spawnedGoats[i] = null;
                     spawnedPrefabs[i] = null;
                 }
 
