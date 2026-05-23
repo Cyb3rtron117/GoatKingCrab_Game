@@ -28,6 +28,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float CurrentBoostTime = 1f;
     public float boostSpeed = 1.5f;
 
+    [Header("Audio")]
+    FootstepManager footsteps;
+
     void Awake()
     {
         playerInputSys = new PlayerInputSystem(); //initialising the input system
@@ -45,6 +48,8 @@ public class PlayerManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        footsteps = GetComponent<FootstepManager>();
+
         moveSpeed = normalSpeed;
         if (rb == null)
         {
@@ -60,6 +65,9 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        bool isMoving = true;       //Checks if the pplayer is moving (set to true since they are always running)
+        footsteps.TriggerFootstep(isMoving);        //Calls the Footstep sounds
+
         Vector2 playerInput = playerInputSys.Player.Move.ReadValue<Vector2>(); //reads the player's input from the input system and turns it into a vector2
         playerInput.x = -playerInput.x;
         //rb.linearVelocity = new Vector2(playerInput.x * moveSpeed, rb.linearVelocity.y);
