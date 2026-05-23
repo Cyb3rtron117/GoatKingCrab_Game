@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class GoatHandler : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    IsometricRigidbody isoRigidbody;
+    void Awake()
     {
-        
+        isoRigidbody = GetComponent<IsometricRigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+
+        isoRigidbody.AddForce(new Vector3(5, 0, 0), true);
         
     }
 }
