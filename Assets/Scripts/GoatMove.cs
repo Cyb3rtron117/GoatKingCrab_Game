@@ -74,20 +74,22 @@ public class GoatMove : MonoBehaviour
 
     public void Kick()
     {
-        
-        transform.SetParent(null, true);
-        
-        
-        if (rb.bodyType == RigidbodyType2D.Kinematic)
+        if (transform.parent == player.transform)
         {
-            rb.bodyType = RigidbodyType2D.Dynamic;
-        }
-        isRidden = false;
-        startRidden = false;
+            transform.SetParent(null, true);
 
-        player.GetComponent<PlayerManager>().Jump();
-        player.GetComponent<PlayerManager>().possibleGoats.Remove(gameObject);
-        player = null;
+
+            if (rb.bodyType == RigidbodyType2D.Kinematic)
+            {
+                rb.bodyType = RigidbodyType2D.Dynamic;
+            }
+            isRidden = false;
+            startRidden = false;
+
+            player.GetComponent<PlayerManager>().Jump();
+            player.GetComponent<PlayerManager>().possibleGoats.Remove(gameObject);
+            player = null;
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
