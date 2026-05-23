@@ -10,26 +10,33 @@ public class GoatMove : MonoBehaviour
     [SerializeField] private float currentRidetime = 1f;
     public GameObject player;
 
+    [SerializeField] private bool startRidden = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentRidetime = maxRidetime;
+        if(startRidden)
+        {
+            isRidden = true;
+            Ride(player);
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!isRidden)
+        if (!isRidden && !startRidden)
         {
             if(rb.bodyType == RigidbodyType2D.Kinematic)
             {
                 rb.bodyType = RigidbodyType2D.Dynamic;
             }
             Vector2 isoOffset = new Vector2(-1f, 0.5f);
-
-            rb.linearVelocity = new Vector2(rb.linearVelocityX, rb.linearVelocityY) * isoOffset * moveSpeed;
+            Vector2 moveDir =  new Vector2(0, moveSpeed);
+            rb.linearVelocity = new Vector2(moveDir.x - moveDir.y, moveDir.x + moveDir.y) * isoOffset;
         }
-        else
+        else if (isRidden)
         {
             if(currentRidetime > 0f)
             {
@@ -52,14 +59,12 @@ public class GoatMove : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Kinematic;
         }
         transform.SetParent(player.transform, true);
-        transform.position = Vector2.zero;
+        transform.localPosition = new Vector2 (0, -0.5f);
         rb.linearVelocity = Vector2.zero;
 
         currentRidetime = maxRidetime;
         
         player.GetComponent<PlayerManager>().Boost();
-        
-
     }
     public void Die()
     {
@@ -78,8 +83,10 @@ public class GoatMove : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Dynamic;
         }
         isRidden = false;
+        startRidden = false;
 
         player.GetComponent<PlayerManager>().Jump();
+        player.GetComponent<PlayerManager>().possibleGoats.Remove(gameObject);
         player = null;
     }
     private void OnCollisionEnter2D(Collision2D collision)
