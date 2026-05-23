@@ -34,6 +34,8 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         musicSource = CreateSource("Music", musicVolume, true);
+        sfxSource = CreateSource("SFX", musicVolume, false);
+        ambienceSource = CreateSource("Ambience", musicVolume, true);
     }
 
     AudioSource CreateSource(string sourceName, float volume, bool loop)

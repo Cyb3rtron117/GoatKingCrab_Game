@@ -41,6 +41,7 @@ public class LevelGenerator : MonoBehaviour
                 spawnedGoats[i] = Instantiate(goatPrefab, nextSpawnPos, Quaternion.identity);
                 Vector3 spawnPos = new Vector3(tileIndex * tileLength * 0.5f, 0, 0);
                 spawnedGoats[i].GetComponent<IsometricRigidbody>().SetPosition(spawnPos);
+                AudioManager.instance.PlaySFX(2);
 
                 nextSpawnPos += ConvertToIsometric(new Vector3(tileLength * 0.5f, 0, 0));
                 tileIndex++;
