@@ -52,39 +52,22 @@ public class PlayerManager : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 playerInput = playerInputSys.Player.Move.ReadValue<Vector2>(); //reads the player's input from the input system and turns it into a vector2
-
-        rb.linearVelocity = new Vector2(playerInput.x * moveSpeed, rb.linearVelocity.y);
-
-        if (playerInput.x != 0)
+        playerInput.x = -playerInput.x;
+        //rb.linearVelocity = new Vector2(playerInput.x * moveSpeed, rb.linearVelocity.y);
+        
+        Vector2 isoOffset = new Vector2(-0.5f, 0.25f);
+        if(playerInput != Vector2.zero)
         {
-            //anim.SetBool("isWalking", true);
-            if (playerInput.x < 0)
-            {
-                transform.rotation = Quaternion.Euler(0f, 180f, 0f); //rotates the player left or right based on input
-            }
-            else if (playerInput.x > 0)
-            {
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            }
-            /*
-            if (!walkingSound.isPlaying)
-            {
-                walkingSound.Play();
-            }*/
+            rb.linearVelocity = new Vector2(playerInput.x - playerInput.y, playerInput.x + playerInput.y) * isoOffset * moveSpeed;
+        }
 
-        }
-        else
-        {
-            //anim.SetBool("isWalking", false);
-            //walkingSound.Stop();
-        }
 
         //Jumping with coyote time
         /*
         Vector3 rayPos = new Vector3(transform.position.x, transform.position.y - rayOffset, transform.position.z);
         isGrounded = Physics2D.Raycast(rayPos, Vector2.down, rayDist, LayerMask.GetMask("Ground"));
         Debug.DrawRay(rayPos, Vector2.down * rayDist, Color.red);
-        */
+        
 
         if (isGrounded)
         {
@@ -115,7 +98,7 @@ public class PlayerManager : MonoBehaviour
         {
             isFalling = false;
         }
-
+        */
 
         //UpdateAnims();
     }
