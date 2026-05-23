@@ -33,7 +33,7 @@ public class LevelGenerator : MonoBehaviour
 
                 //Spawn a goat on the tile with a 50% chance
                 spawnedGoats[i] = Instantiate(goatPrefab, nextSpawnPos, Quaternion.identity);
-                spawnedGoats[i].GetComponent<IsometricRigidbody>().SetPosition(nextSpawnPos);
+                spawnedGoats[i].GetComponent<IsometricRigidbody>().SetPosition();
 
                 nextSpawnPos += ConvertToIsometric(new Vector3(tileLength * 0.5f, 0, 0));
 
@@ -54,7 +54,7 @@ public class LevelGenerator : MonoBehaviour
 
     }
 
-    public Vector2 ConvertToIsometric(Vector3 cartesianPos)
+    Vector2 ConvertToIsometric(Vector3 cartesianPos)
     {
         // The isometric X is calculated from the horizontal (X) and depth/vertical (Z)
         float isoX = (cartesianPos.x - cartesianPos.z) * Mathf.Cos(Mathf.Deg2Rad * 30);
@@ -65,4 +65,15 @@ public class LevelGenerator : MonoBehaviour
         return new Vector2(isoX, isoY);
 
     }
+    Vector3 ConvertToCartesian(Vector2 isometricPos)
+    {
+        // The cartesian X is calculated from the isometric X and Y
+        float cartesianX = (isometricPos.x / Mathf.Cos(Mathf.Deg2Rad * 30) + isometricPos.y / Mathf.Sin(Mathf.Deg2Rad * 30)) / 2;
+        // The cartesian Z is calculated from the isometric X and Y
+        float cartesianZ = (isometricPos.y / Mathf.Sin(Mathf.Deg2Rad * 30) - isometricPos.x / Mathf.Cos(Mathf.Deg2Rad * 30)) / 2;
+        // The cartesian Y is the same as the isometric Y
+        float cartesianY = isometricPos.y;
+        return new Vector3(cartesianX, cartesianY, cartesianZ);
+    }
+
 }
