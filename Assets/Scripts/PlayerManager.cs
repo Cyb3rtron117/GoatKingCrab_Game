@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Jump Settings")]
     public float jumpForce = 8f;
     public float gravity = 25f;
+    private bool Freeze = false;
 
     // Internal Fake 3D Z-Axis Variables
     private float verticalPosition = 0f; // Fake Z height
@@ -72,7 +73,15 @@ public class PlayerManager : MonoBehaviour
         Vector2 isoOffset = new Vector2(-1f, 0.5f);
 
         Vector2 moveDir = new Vector2(playerInput.x, boostSpeed);
-        rb.linearVelocity = new Vector2(moveDir.x - moveDir.y, moveDir.x + moveDir.y) * isoOffset * moveSpeed;
+        if(!Freeze)
+        {
+            rb.linearVelocity = new Vector2(moveDir.x - moveDir.y, moveDir.x + moveDir.y) * isoOffset * moveSpeed;
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+
 
         if (playerInputSys.Player.Sprint.WasPressedThisFrame())
         {
@@ -97,25 +106,34 @@ public class PlayerManager : MonoBehaviour
         if (playerInputSys.Player.Jump.WasPressedThisFrame() && isGrounded)
         {
             //Jump();
-            if (possibleGoats.Count > 1)
+            
+            if (possibleGoats.Count > 0)
             {
-                possibleGoats[0].GetComponent<GoatMove>().Ride(gameObject);
+                print("jump");
+                possibleGoats[0].GetComponent<GoatMove>().Kick();
             }
         }
 
         if (!isGrounded || verticalVelocity > 0)
         {
-            verticalVelocity -= gravity * Time.fixedDeltaTime;
-            verticalPosition += verticalVelocity * Time.fixedDeltaTime;
-
-            // Land detection
-            if (verticalPosition <= 0 && possibleGoats.Count > 1)
+            if (!Freeze)
             {
-                verticalPosition = 0;
-                verticalVelocity = 0;
-                isGrounded = true;
-                enemTrigger.enabled = true;
-                possibleGoats[0].GetComponent<GoatMove>().Ride(gameObject);
+                verticalVelocity -= gravity * Time.fixedDeltaTime;
+                verticalPosition += verticalVelocity * Time.fixedDeltaTime;
+
+                // Land detection
+                if (verticalPosition <= 0 && possibleGoats.Count > 0)
+                {
+                    verticalPosition = 0;
+                    verticalVelocity = 0;
+                    isGrounded = true;
+                    enemTrigger.enabled = true;
+                    possibleGoats[0].GetComponent<GoatMove>().Ride(gameObject);
+                }
+                else if (verticalPosition <= -0.5f)
+                {
+                    Freeze = true;
+                }
             }
         }
 
