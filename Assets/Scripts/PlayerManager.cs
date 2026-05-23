@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AdaptivePerformance;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -6,7 +7,9 @@ public class PlayerManager : MonoBehaviour
 
     public Rigidbody2D rb;
     public Animator anim;
+    public float normalSpeed = 1f;
     public float moveSpeed = 1f;
+    
     [Header("Jumping")]
     public float jumpforce = 1f;
     public float lowjumpMultiplier = 2f;
@@ -19,6 +22,11 @@ public class PlayerManager : MonoBehaviour
     public float rayDist = 1f;
     public float rayOffset = 0.1f;
 
+    [Header("Boosting")]
+    private bool boosting = false;
+    [SerializeField] private float BoostTime = 1f;
+    [SerializeField] private float CurrentBoostTime = 1f;
+    public float boostSpeed = 1.5f;
 
     void Awake()
     {
@@ -37,6 +45,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        moveSpeed = normalSpeed;
         if (rb == null)
         {
             rb = GetComponent<Rigidbody2D>();
@@ -45,46 +54,48 @@ public class PlayerManager : MonoBehaviour
         {
             anim = GetComponent<Animator>();
         }
-
+        boostSpeed = 1f;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         Vector2 playerInput = playerInputSys.Player.Move.ReadValue<Vector2>(); //reads the player's input from the input system and turns it into a vector2
+        playerInput.x = -playerInput.x;
+        //rb.linearVelocity = new Vector2(playerInput.x * moveSpeed, rb.linearVelocity.y);
+        
+        Vector2 isoOffset = new Vector2(-1f, 0.5f);
 
-        rb.linearVelocity = new Vector2(playerInput.x * moveSpeed, rb.linearVelocity.y);
+        Vector2 moveDir = new Vector2(playerInput.x, boostSpeed);
+        rb.linearVelocity = new Vector2(moveDir.x - moveDir.y, moveDir.x + moveDir.y) * isoOffset * moveSpeed;
 
-        if (playerInput.x != 0)
+        if (playerInputSys.Player.Sprint.WasPressedThisFrame())
         {
-            //anim.SetBool("isWalking", true);
-            if (playerInput.x < 0)
-            {
-                transform.rotation = Quaternion.Euler(0f, 180f, 0f); //rotates the player left or right based on input
-            }
-            else if (playerInput.x > 0)
-            {
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            }
-            /*
-            if (!walkingSound.isPlaying)
-            {
-                walkingSound.Play();
-            }*/
-
+            Boost();
         }
-        else
+        if(boosting)
         {
-            //anim.SetBool("isWalking", false);
-            //walkingSound.Stop();
+            if(CurrentBoostTime > 0f)
+            {
+                CurrentBoostTime -= Time.fixedDeltaTime;
+                //moveSpeed = boostSpeed;
+                boostSpeed = 2f;
+            }
+            else
+            {
+                boosting = false;
+                //moveSpeed = normalSpeed;
+                boostSpeed = 1f;
+            }
         }
+        
 
         //Jumping with coyote time
         /*
         Vector3 rayPos = new Vector3(transform.position.x, transform.position.y - rayOffset, transform.position.z);
         isGrounded = Physics2D.Raycast(rayPos, Vector2.down, rayDist, LayerMask.GetMask("Ground"));
         Debug.DrawRay(rayPos, Vector2.down * rayDist, Color.red);
-        */
+        
 
         if (isGrounded)
         {
@@ -115,7 +126,7 @@ public class PlayerManager : MonoBehaviour
         {
             isFalling = false;
         }
-
+        */
 
         //UpdateAnims();
     }
@@ -138,6 +149,14 @@ public class PlayerManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") && isGrounded)
         {
             isGrounded = false;
+        }
+    }
+    void Boost()
+    {
+        if (!boosting)
+        {
+            boosting = true;
+            CurrentBoostTime = BoostTime;
         }
     }
 }
