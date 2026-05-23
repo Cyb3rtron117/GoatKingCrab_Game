@@ -55,7 +55,7 @@ public class PlayerManager : MonoBehaviour
         playerInput.x = -playerInput.x;
         //rb.linearVelocity = new Vector2(playerInput.x * moveSpeed, rb.linearVelocity.y);
         
-        Vector2 isoOffset = new Vector2(-0.5f, 0.25f);
+        Vector2 isoOffset = new Vector2(-1f, 0.5f);
         if(playerInput != Vector2.zero)
         {
             rb.linearVelocity = new Vector2(playerInput.x - playerInput.y, playerInput.x + playerInput.y) * isoOffset * moveSpeed;
