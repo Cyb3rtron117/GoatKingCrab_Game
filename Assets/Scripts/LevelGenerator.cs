@@ -2,18 +2,23 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    [Header("Tile Prefabs")]
     [SerializeField] private GameObject[] tilePrefabs;
     int tileLength = 16;
     int gridCount = 4;
     private GameObject[] spawnedPrefabs;
-    Vector2 nextSpawnPos =Vector2.zero;
+    Vector2 nextSpawnPos = Vector2.zero;
+
+    [Header("Goat Prefab")]
+    [SerializeField] private GameObject goatPrefab;
+    GameObject[] spawnedGoats;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         spawnedPrefabs = new GameObject[gridCount];
-
+        spawnedGoats = new GameObject[gridCount];
     }
 
     // Update is called once per frame
@@ -23,7 +28,13 @@ public class LevelGenerator : MonoBehaviour
         {
             if (spawnedPrefabs[i] == null)
             {
+                // Spawn a tile at the next spawn position
                 spawnedPrefabs[i] = Instantiate(tilePrefabs[0], nextSpawnPos, Quaternion.identity);
+
+                //Spawn a goat on the tile with a 50% chance
+                spawnedGoats[i] = Instantiate(goatPrefab, nextSpawnPos, Quaternion.identity);
+                spawnedGoats[i].GetComponent<IsometricRigidbody>().SetPosition(nextSpawnPos);
+
                 nextSpawnPos += ConvertToIsometric(new Vector3(tileLength * 0.5f, 0, 0));
 
             }
@@ -33,6 +44,7 @@ public class LevelGenerator : MonoBehaviour
                 if (spawnedPrefabs[i].transform.position.y < cameraY - 8)
                 {
                     Destroy(spawnedPrefabs[i]);
+                    Destroy(spawnedGoats[i]);
                     spawnedPrefabs[i] = null;
                 }
 

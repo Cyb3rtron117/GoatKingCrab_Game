@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class IsometricRigidbody : MonoBehaviour
 {
+    [Header("Isometric Rigidbody Stats")]
     [SerializeField] Vector3 velocity;
     [SerializeField] Vector3 isometricPosition;
 
@@ -56,6 +57,10 @@ public class IsometricRigidbody : MonoBehaviour
         else
             velocity += force;
 
+    }
+    public void SetPosition(Vector3 newPos)
+    {
+        isometricPosition = newPos;
     }
 
 
