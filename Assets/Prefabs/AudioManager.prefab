@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   musicTracks:
-  - {fileID: 8300000, guid: c524c3efd517a4f48a70a689ae219e83, type: 3}
   - {fileID: 8300000, guid: fe88be04af80d6d42bf7f72eb13dc3b9, type: 3}
+  - {fileID: 8300000, guid: c524c3efd517a4f48a70a689ae219e83, type: 3}
   sfxClips:
   - {fileID: 8300000, guid: 2f998af2a1f960c479d7166d41f2662a, type: 3}
   - {fileID: 8300000, guid: e8350265f9ca33d4bbda3e943f8c8a55, type: 3}
