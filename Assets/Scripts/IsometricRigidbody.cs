@@ -4,11 +4,10 @@ public class IsometricRigidbody : MonoBehaviour
 {
     [Header("Isometric Rigidbody Stats")]
     [SerializeField] Vector3 velocity;
-    [SerializeField] Vector3 isometricPosition;
+    [SerializeField] Vector3 isometricPosition = Vector3.zero;
 
     void Start()
     {
-        isometricPosition = Vector3.zero;
         velocity = Vector3.zero;
 
     }
