@@ -183,6 +183,14 @@ PrefabInstance:
       propertyPath: ambienceVolume
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 9061600038503753298, guid: f05130b553269d346b6229e7845a75b3, type: 3}
+      propertyPath: 'musicTracks.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: fe88be04af80d6d42bf7f72eb13dc3b9, type: 3}
+    - target: {fileID: 9061600038503753298, guid: f05130b553269d346b6229e7845a75b3, type: 3}
+      propertyPath: 'musicTracks.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: c524c3efd517a4f48a70a689ae219e83, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
